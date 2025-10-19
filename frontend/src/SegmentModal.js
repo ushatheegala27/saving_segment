@@ -17,7 +17,7 @@ export default function SegmentModal({ onClose }) {
   const [statusMessage, setStatusMessage] = useState(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  // Filter dropdown options that are not yet selected
+  
   const mainOptions = useMemo(() => {
     return ALL_OPTIONS.filter(opt => !schemaList.includes(opt.value));
   }, [schemaList]);
@@ -74,8 +74,8 @@ export default function SegmentModal({ onClose }) {
       });
 
       if (res.ok || res.status === 200 || res.status === 201) {
-        console.log(" Sent payload:", payload);
-        setShowSuccessPopup(true); 
+        console.log("Sent payload:", payload);
+        setShowSuccessPopup(true);
       } else {
         setStatusMessage({ type: "error", text: `Server responded with status ${res.status}` });
       }
@@ -95,7 +95,7 @@ export default function SegmentModal({ onClose }) {
       <div className="modal">
         <div className="modal-header">
           <h2>Save segment</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <button type="button" className="close-btn" onClick={onClose}>×</button>
         </div>
 
         <div className="modal-body">
@@ -123,7 +123,9 @@ export default function SegmentModal({ onClose }) {
                 ))}
               </select>
 
-              <a href="#" onClick={handleAddSchema} className="add-link"> + Add</a>
+              <button type="button" onClick={handleAddSchema} className="add-link">
+                + Add
+              </button>
             </div>
           </div>
 
@@ -140,12 +142,13 @@ export default function SegmentModal({ onClose }) {
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
                 </select>
-                <button className="remove-btn" onClick={() => handleRemoveSchema(idx)}>Remove</button>
+                <button type="button" className="remove-btn" onClick={() => handleRemoveSchema(idx)}>
+                  Remove
+                </button>
               </div>
             ))}
           </div>
 
-          
           {statusMessage && statusMessage.type === "error" && (
             <div className="status error">
               {statusMessage.text}
@@ -154,21 +157,20 @@ export default function SegmentModal({ onClose }) {
         </div>
 
         <div className="modal-footer">
-          <button onClick={handleSave} className="primary-btn">Save the segment</button>
-          <button onClick={onClose} className="secondary-btn">Cancel</button>
+          <button type="button" onClick={handleSave} className="primary-btn">Save the segment</button>
+          <button type="button" onClick={onClose} className="secondary-btn">Cancel</button>
         </div>
       </div>
 
-      {/*  Success Popup */}
       {showSuccessPopup && (
         <div className="success-popup">
           <div className="popup-content">
-            <h3> Success</h3>
+            <h3>Success</h3>
             <p>Your segment has been saved successfully.</p>
             <button
+              type="button"
               onClick={() => {
                 setShowSuccessPopup(false);
-                // Clear form after confirmation
                 setSegmentName("");
                 setSchemaList([]);
                 setMainSelect("");
