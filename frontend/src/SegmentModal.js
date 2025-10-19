@@ -17,7 +17,7 @@ export default function SegmentModal({ onClose }) {
   const [statusMessage, setStatusMessage] = useState(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  // Filter dropdown options that are not yet selected
+  
   const mainOptions = useMemo(() => {
     return ALL_OPTIONS.filter(opt => !schemaList.includes(opt.value));
   }, [schemaList]);
@@ -162,7 +162,6 @@ export default function SegmentModal({ onClose }) {
         </div>
       </div>
 
-      {/* Success Popup */}
       {showSuccessPopup && (
         <div className="success-popup">
           <div className="popup-content">
@@ -172,7 +171,6 @@ export default function SegmentModal({ onClose }) {
               type="button"
               onClick={() => {
                 setShowSuccessPopup(false);
-                // Clear form after confirmation
                 setSegmentName("");
                 setSchemaList([]);
                 setMainSelect("");
